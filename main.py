@@ -32,7 +32,7 @@ def get_link(path):
         return item[0]
     
 def produce(name,link):
-    main="<tr><td class='name'>"+name+"</td><td class='size'>"+link+"</td>"+"<td class='more'>123</td></tr>"
+    main="<tr><td class='name'>"+name+"/</td><td class='size'>"+link+"</td>"+"<td class='more'>123</td></tr>"
     return main
 
 def merge_catalog(path):
@@ -41,49 +41,55 @@ def merge_catalog(path):
         print(produce(get_dir(path)[i],get_link(path)))
         main+=produce(get_dir(path)[i],get_link(path))+"\n"
     return main
-one=merge_catalog("./")
 
-while True:
-    a,b=sk.accept()
-    data=a.recv(1024)
-    print(data.decode('utf-8'))
-    print(a)
-    message='''HTTP/1.0 200 OK
-Content-Type: text/html
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>服务器文件</title>
-    </head>
-    <body>
-        <h1>服务器文件管理系统</h1>
-        <table class="table_file" border="1" cellspacing="0">
-            <tr>
-            <th >名字</th>
-            <th >大小</th>
-            <th >操作</th>
-            </tr>
-            <tr>
-            <td class="name">123</td>
-            <td class="size">123</td>
-            <td class="more">123</td>
-            </tr>'''+one+'''
-        </table>
-    </body>
-    <style>
-    .table_file{
-    width:800px;
-    }
-    .table_file td {
-    text-align: center;
-    }
-</style>
-</html>'''
-    # time.sleep(1)
-    a.send(message.encode('utf-8'))
-    
-    break
+def get_file(path):
+    for item in os.walk(path):
+        return item[2]
+
+print(get_file("./"))
+
+
+# while True:
+#     a,b=sk.accept()
+#     data=a.recv(1024)
+#     print(data.decode('utf-8'))
+#     print(a)
+#     message='''HTTP/1.0 200 OK
+# Content-Type: text/html
+
+# <html>
+#     <head>
+#         <meta charset="utf-8">
+#         <title>服务器文件</title>
+#     </head>
+#     <body>
+#         <h1>服务器文件管理系统</h1>
+#         <table class="table_file" border="1" cellspacing="0">
+#             <tr>
+#             <th >名字</th>
+#             <th >大小</th>
+#             <th >操作</th>
+#             </tr>
+#             <tr>
+#             <td class="name">123</td>
+#             <td class="size">123</td>
+#             <td class="more">123</td>
+#             </tr>'''+one+'''
+#         </table>
+#     </body>
+#     <style>
+#     .table_file{
+#     width:800px;
+#     }
+#     .table_file td {
+#     text-align: center;
+#     }
+# </style>
+# </html>'''
+#     # time.sleep(1)
+#     a.send(message.encode('utf-8'))
+#     break
 
 
 
