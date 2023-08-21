@@ -12,16 +12,12 @@ sk=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 ip_port=("127.0.0.1",8002)
 #绑定一个端口
 sk.bind(ip_port)
-#监听一个端口,这里的数字3是一个常量，表示阻塞3个连接，也就是最大等待数为3
 sk.listen(3)
 
-#客户端发送的数据存储在recv里，1024指最大接受数据的量
 
-#接受客户端的数据，并返回两个参数，a为连接信息，b为客户端的ip地址与端口号
 
 def get_link(path):
     for item in os.walk(path):0
-    
     return item[0]
     
 
