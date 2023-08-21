@@ -9,7 +9,7 @@ import re
 #这是进行定义一个ip协议版本AF_INET（IPv4），定义一个传输TCP协议，SOCK_STREAM
 sk=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 #定义ip地址与端口号，ip地址就是服务端的ip地址，端口随便定义，但要与客户端脚本一致
-ip_port=("127.0.0.1",8001)
+ip_port=("127.0.0.1",8002)
 #绑定一个端口
 sk.bind(ip_port)
 #监听一个端口,这里的数字3是一个常量，表示阻塞3个连接，也就是最大等待数为3
@@ -20,8 +20,9 @@ sk.listen(3)
 #接受客户端的数据，并返回两个参数，a为连接信息，b为客户端的ip地址与端口号
 
 def get_link(path):
-    for item in os.walk(path):
-        return item[0]
+    for item in os.walk(path):0
+    
+    return item[0]
     
 
 def get_dir(path):
@@ -33,7 +34,7 @@ def get_dir_num(path):
         return len(item[1])
 
 def produce_dir(name,link):
-    main="<tr><td class='name'>"+name+"/</td><td class='size'>"+link+"</td>"+"<td class='more'>123</td></tr>"
+    main="<tr><td class='name'><a href='"+name+"'>"+name+"</a>/</td><td class='size'>"+link+"</td>"+"<td class='more'>123</td></tr>"
     return main
 
 def merge_catalog_dir(path):
@@ -53,7 +54,7 @@ def get_file_num(path):
         return len(item[2])
     
 def produce_file(name,link):
-    main="<tr><td class='name'>"+name+"</td><td class='size'>"+link+"KB</td>"+"<td class='more'>123</td></tr>"
+    main="<tr><td class='name'><a href='"+name+"'>"+name+"</a></td><td class='size'>"+link+"KB</td>"+"<td class='more'>123</td></tr>"
     return main
 
 def merge_catalog_file(path):
@@ -96,6 +97,12 @@ Content-Type: text/html
         </table>
     </body>
     <style>
+    body{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    }
     .table_file{
     width:800px;
     }
@@ -106,7 +113,7 @@ Content-Type: text/html
 </html>'''
     # time.sleep(1)
     a.send(message.encode('utf-8'))
-    break
+    a.close()
 
 
 
