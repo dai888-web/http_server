@@ -1,7 +1,7 @@
 import socket
 import re
 sk=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-ip_port=("127.0.0.1",8001)
+ip_port=("127.0.0.1",8003)
 sk.bind(ip_port)
 sk.listen(3)
 def findall(data):
@@ -17,6 +17,7 @@ while True:
     a,b=sk.accept()
     data=a.recv(1024)
     option=findall(data.decode('utf-8'))
+    print(option)
     if option==None:
         continue
     if (option==""):
@@ -36,5 +37,11 @@ while True:
         lines = f.read()
         f.close()
         message="HTTP/1.0 200 OK\nContent-Type: text/html\n\n"
+        a.send(message.encode("utf-8")+lines)
+    elif (option[-3:]=="jpg" or option[-3:]=="png" or option[-3:]=="bmp"):
+        f = open(option,'rb')
+        lines = f.read()
+        f.close()
+        message="HTTP/1.0 200 OK\nContent-Type: image\n\n"
         a.send(message.encode("utf-8")+lines)
     a.close()
