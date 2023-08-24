@@ -1,7 +1,7 @@
 import socket
 import re
-sk=socket.socket(socket.AF_INET6,socket.SOCK_STREAM)
-ip_port=("127.0.0.1",8003)
+sk=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+ip_port=("172.17.0.1",8002)
 sk.bind(ip_port)
 sk.listen(3)
 def findall(data):
