@@ -1,7 +1,7 @@
 import socket
 import re
 sk=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-ip_port=("127.0.0.1",8003)
+ip_port=("0.0.0.0",8080)
 sk.bind(ip_port)
 sk.listen(3)
 def findall(data):
@@ -21,13 +21,13 @@ while True:
     if option==None:
         continue
     if (option==""):
-        f = open("index.html",'rb')
+        f = open("../src/index.html",'rb')
         lines = f.read()
         f.close()
         message="HTTP/1.0 200 OK\nContent-Type: text/html\n\n"
         a.send(message.encode("utf-8")+lines)
     elif (option[-3:]=="ico" or option[-4:]=="ICO"):
-        f = open(option,'rb')
+        f = open("../src/"+option,'rb')
         lines = f.read()
         f.close()
         message="HTTP/1.0 200 OK\nContent-Type: image/x-icon\n\n"
